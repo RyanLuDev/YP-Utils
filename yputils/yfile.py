@@ -1,8 +1,9 @@
+from genericpath import isfile
 import os
 import pathlib
 import hashlib
 
-IMG_TYPE = []
+IMG_TYPE = ['JPG', 'JPEG', 'PNG', 'jpg', 'jpeg', 'png']
 
 
 def list_file(f_path: str, f_ext: list[str]) -> list[str]:
@@ -32,23 +33,21 @@ def mkdir(dirpath: str) -> None:
         os.makedirs(dirpath)
 
 
-def hash(f_name: str) -> str:
-    return ''
-
-
-def sha256(filename: str) -> str:
-    file_names = os.path.split(filename)
-    file_path = ''
-    if len(file_names) == 2 and file_names[0] == '':
-        file_path = os.path.join(os.getcwd(), file_names[1])
-    else:
-        file_path = filename
-
-    if os.path.exists(file_path):
+def hash(file_path: str, hash_type: str) -> str:
+    if os.path.isfile(file_path):
+        result = ''
         with open(file_path, 'rb') as f:
-            sha256_obj = hashlib.sha256()
-            sha256_obj.update(f.read())
-
-            return sha256_obj.hexdigest()
+            match hash_type:
+                case 'sha256':
+                    sha256_obj = hashlib.sha256()
+                    sha256_obj.update(f.read())
+                    result = sha256_obj.hexdigest()
+                case 'md5':
+                    md5_obj = hashlib.md5()
+                    md5_obj.update(f.read())
+                    result = md5_obj.hexdigest()
+                case _:
+                    result = 'Invalid Hash Type'
+        return result
     else:
         return 'Invalid File'
