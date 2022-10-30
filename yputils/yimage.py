@@ -11,7 +11,7 @@ def transponse(img_dir: str, terget_dir: str = 'Converted') -> None:
     :param terget_dir: dirname for stored the images are saved.
     :return: None
     """
-    img_list = yfile.get_img_list(img_dir, ['jpg', 'JPG', 'PNG', 'png'])
+    img_list = yfile.list_imgs(img_dir, ['jpg', 'JPG', 'PNG', 'png'])
     if img_list:
         target_dir = os.path.join(img_dir, terget_dir)
         if not os.path.exists(target_dir):

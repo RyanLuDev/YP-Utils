@@ -1,3 +1,3 @@
 __name__ = "yputils"
-name = "yputils"
-__version__ = "0.2.1"
+name = __name__
+__version__ = "0.2.2"

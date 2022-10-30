@@ -1,4 +1,3 @@
-from genericpath import isfile
 import os
 import pathlib
 import hashlib
@@ -7,6 +6,8 @@ IMG_TYPE = ['JPG', 'JPEG', 'PNG', 'jpg', 'jpeg', 'png']
 
 
 def list_file(f_path: str, f_ext: list[str]) -> list[str]:
+    if not os.path.exists(f_path):
+        return []
     exts = ['.'+ext for ext in f_ext]
     files: list[str] = []
     for f in os.listdir(f_path):
@@ -17,14 +18,20 @@ def list_file(f_path: str, f_ext: list[str]) -> list[str]:
 
 
 def list_file_path(f_path: str, f_ext: list[str]) -> list[str]:
+    if not os.path.exists(f_path):
+        return []
     return [os.path.join(f_path, f) for f in list_file(f_path, f_ext)]
 
 
 def list_imgs(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+    if not os.path.exists(f_path):
+        return []
     return list_file(f_path, f_ext)
 
 
 def lsit_imgs_path(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+    if not os.path.exists(f_path):
+        return []
     return list_file_path(f_path, f_ext)
 
 
