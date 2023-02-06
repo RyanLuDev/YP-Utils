@@ -7,6 +7,10 @@ IMG_TYPE = ['jpg', 'jpeg', 'png']
 
 
 def list_file(f_path: str, f_ext: list[str]) -> list[str]:
+    files(f_path, f_ext)
+
+
+def files(f_path: str, f_ext: list[str]) -> list[str]:
     f_ext = [ext.lower() for ext in f_ext]
     if not os.path.exists(f_path):
         return []
@@ -20,18 +24,30 @@ def list_file(f_path: str, f_ext: list[str]) -> list[str]:
 
 
 def list_path(f_path: str, f_ext: list[str]) -> list[str]:
+    f_paths(f_path, f_ext)
+
+
+def f_paths(f_path: str, f_ext: list[str]) -> list[str]:
     if not os.path.exists(f_path):
         return []
     return [os.path.join(f_path, f) for f in list_file(f_path, f_ext)]
 
 
-def list_imgs(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+def list_imgs(f_path: str, f_ext: list[str]) -> list[str]:
+    imgs(f_path, f_ext)
+
+
+def imgs(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
     if not os.path.exists(f_path):
         return []
     return list_file(f_path, f_ext)
 
 
-def lsit_imgs_path(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+def imgs_path(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+    i_paths(f_path, f_ext)
+
+
+def i_paths(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
     if not os.path.exists(f_path):
         return []
     return list_path(f_path, f_ext)
