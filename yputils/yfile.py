@@ -6,8 +6,8 @@ import shutil
 IMG_TYPE = ['jpg', 'jpeg', 'png']
 
 
-def list_file(f_path: str, f_ext: list[str]) -> list[str]:
-    files(f_path, f_ext)
+# def list_file(f_path: str, f_ext: list[str]) -> list[str]:
+#     files(f_path, f_ext)
 
 
 def files(f_path: str, f_ext: list[str]) -> list[str]:
@@ -23,34 +23,34 @@ def files(f_path: str, f_ext: list[str]) -> list[str]:
     return files
 
 
-def list_path(f_path: str, f_ext: list[str]) -> list[str]:
-    f_paths(f_path, f_ext)
+# def list_path(f_path: str, f_ext: list[str]) -> list[str]:
+#     file_paths(f_path, f_ext)
 
 
-def f_paths(f_path: str, f_ext: list[str]) -> list[str]:
+def file_paths(f_path: str, f_ext: list[str]) -> list[str]:
     if not os.path.exists(f_path):
         return []
-    return [os.path.join(f_path, f) for f in list_file(f_path, f_ext)]
+    return [os.path.join(f_path, f) for f in files(f_path, f_ext)]
 
 
-def list_imgs(f_path: str, f_ext: list[str]) -> list[str]:
-    imgs(f_path, f_ext)
+# def list_imgs(f_path: str, f_ext: list[str]) -> list[str]:
+#     imgs(f_path, f_ext)
 
 
 def imgs(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
     if not os.path.exists(f_path):
         return []
-    return list_file(f_path, f_ext)
+    return files(f_path, f_ext)
 
 
-def imgs_path(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
-    i_paths(f_path, f_ext)
+def img_paths(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+    file_paths(f_path, f_ext)
 
 
-def i_paths(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
-    if not os.path.exists(f_path):
-        return []
-    return list_path(f_path, f_ext)
+# def i_paths(f_path: str, f_ext: list[str] = IMG_TYPE) -> list[str]:
+#     if not os.path.exists(f_path):
+#         return []
+#     return list_path(f_path, f_ext)
 
 
 def file_hash(file_path: str, hash_type: str) -> str:
