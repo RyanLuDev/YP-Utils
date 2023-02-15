@@ -12,7 +12,7 @@ setuptools.setup(
     description="Python code segment for self using.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://www.github.com/RyanLuDev/yputils",
+    url="https://www.github.com/RyanLuDev/YP-Utils",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
