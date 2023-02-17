@@ -1,7 +1,6 @@
 import os
 import pathlib
 import hashlib
-import shutil
 
 IMG_TYPE = ['jpg', 'jpeg', 'png']
 
