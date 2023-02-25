@@ -6,5 +6,5 @@ def load_toml(filepath):
     if not os.path.exists(filepath):
         return None
 
-    with open(filepath, 'rb') as f:
+    with open(filepath, 'r') as f:
         return tomllib.load(f.read())
