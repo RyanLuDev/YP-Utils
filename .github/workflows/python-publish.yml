@@ -1,4 +1,4 @@
-name: Build
+name: Publish PyPi
 
 on:
   release:
@@ -16,8 +16,9 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-13, macos-14]
 
     steps:
-      - uses: actions/checkout@v4
-        name: Setup Python
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -34,42 +35,37 @@ jobs:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
           path: ./wheelhouse/*.whl
     
-    build_sdist:
-        name: Build Source Distribution
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Build sdist
-              run: pipx run build --sdist
-            
-            - uses: actions/upload-artifact@v4
-              with:
-                name: cibw-sdist
-                path: dist/*.tar.gz
+  build_sdist:
+      name: Build Source Distribution
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Build sdist
+          run: pipx run build --sdist            
+        - uses: actions/upload-artifact@v4
+          with:
+            name: cibw-sdist
+            path: dist/*.tar.gz
     
-    upload:
-        needs: [build_wheels, build_sdist]
-        runs-on: ubuntu-latest
-        environment: pypi
-        permissions:
-            id-token: write
-        setps:
-            - uses: actions/download-artifact@v4
-              with:
-                pattern: cibw-*
-                path: dist
-                merge-multiple: true
+  upload:
+      needs: [build_wheels, build_sdist]
+      runs-on: ubuntu-latest
+      environment: pypi
+      permissions:
+        id-token: write
+      steps:
+        - uses: actions/download-artifact@v4
+          with:
+            pattern: cibw-*
+            path: dist
+            merge-multiple: true
             #- name: Publish to test pypi
-            #    uses: pypa/gh-action-pypi-publish@v1.8.14
-            #    with: 
-            #       repository-url: https://test.pypi.org/legacy/
-            #        packages-dir: dist/
             
-            - name: Publish to pypi
-                #if: github.event_name == 'release' && github.event.action == 'published'
-                if: startsWith(github.ref, 'refs/tags')
-                uses: pypa/gh-action-pypi-publish@master
-                with:
-                    package-dir: dist/
+        - name: Publish to pypi
+                #if: github.event_name == 'release' && github.event.action == 'published     
+          if: startsWith(github.ref, 'refs/tags')
+          uses: pypa/gh-action-pypi-publish@master
+          with:
+            package-dir: dist/
                     #user: __token__
-                    password: ${{ secrets.PYPI_API_TOKEN }}      
+            password: ${{ secrets.PYPI_API_TOKEN }}      
