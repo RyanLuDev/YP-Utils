@@ -6,7 +6,7 @@ on:
       - 'v*'
 jobs:
   build-n-publish:
-    name: Build wheels
+    name: Build wheels and Publish to  PyPi
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
